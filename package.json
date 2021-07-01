@@ -1,0 +1,31 @@
+{
+  "name": "quinta-feira",
+  "version": "1.0.0",
+  "description": "quinta-feira é um whatsapp bot bem simples que fiz para brincar com respostas automáticas no dia do meu aniverário.",
+  "main": "quinta-feira.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dsaouda/quinta-feira.git"
+  },
+  "keywords": [
+    "whatsapp",
+    "bot",
+    "aniversario"
+  ],
+  "author": "diego.saouda",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/dsaouda/quinta-feira/issues"
+  },
+  "homepage": "https://github.com/dsaouda/quinta-feira#readme",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "whatsapp-web.js": "^1.12.6"
+  },
+  "devDependencies": {
+    "eslint": "^7.29.0"
+  }
+}
