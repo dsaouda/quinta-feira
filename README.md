@@ -1,3 +1,4 @@
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/cb029ac75551403c956b2a61209ddf27)](https://www.codacy.com/gh/dsaouda/quinta-feira/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dsaouda/quinta-feira&amp;utm_campaign=Badge_Grade)
 [![Depfu](https://badges.depfu.com/badges/81ca77d532e5c0006c9f195ea91ec86a/overview.svg)](https://depfu.com/github/dsaouda/quinta-feira?project_id=28278)
 
 # quinta-feira | [en](https://github.com/dsaouda/quinta-feira/blob/main/README-en.md)
