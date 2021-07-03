@@ -29,6 +29,6 @@
     "whatsapp-web.js": "^1.12.6"
   },
   "devDependencies": {
-    "eslint": "^7.29.0"
+    "eslint": "^7.30.0"
   }
 }
