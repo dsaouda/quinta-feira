@@ -1,4 +1,4 @@
-# quinta-feira
+# quinta-feira | [en](https://github.com/dsaouda/quinta-feira/blob/main/README-en.md)
 
 quinta-feira é um WhatsApp bot bem simples que fiz para brincar com respostas automáticas no dia do meu aniversário.
 
