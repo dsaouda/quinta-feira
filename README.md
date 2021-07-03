@@ -1,15 +1,15 @@
 # Quinta-Feira
 
-Veja a versão em português ()
+Veja a versão em português (https://github.com/dsaouda/quinta-feira/blob/main/README-pt_br.md)
 
 Quinta-Feira (Thursday) is a very simple WhatsApp bot I made to play with auto-responders on my birthday.
 
 ### But why (Quinta-Feira) Thursday?
-The idea of ​​the name is to play with Tony Stark's artificial intelligence name, F.R.I.D.A.Y.
+The idea of the name is to play with Tony Stark's artificial intelligence name, F.R.I.D.A.Y.
 
 thursday was the day i put the bot to reply to automatic messages (my birthday) hehehe.
 
-Also I wanted to convey the idea of ​​evolution, like the bot is not very good, but when it "evolves" to Friday it will be better. Hehehe
+Also I wanted to convey the idea of evolution, like the bot is not very good, but when it "evolves" to Friday it will be better. Hehehe
 
 ## Settings
 
