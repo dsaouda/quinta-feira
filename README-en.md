@@ -1,7 +1,5 @@
 # Quinta-Feira
 
-Veja a versão em português (https://github.com/dsaouda/quinta-feira/blob/main/README-pt_br.md)
-
 Quinta-Feira (Thursday) is a very simple WhatsApp bot I made to play with auto-responders on my birthday.
 
 ### But why (Quinta-Feira) Thursday?
