@@ -1,0 +1,20 @@
+# isso é um comentário e será ignorado
+# linhas que iniciam com # e em branco são ignoradas
+# espaço em branco no inicio de cada linha ou no final também são removidos
+# informe abaixo uma lista de palavras para caso seja detectado o robo responda automaticamente a uma mensagem no grupo
+# atenção: o robo só responderá as mensagens em grupo caso a combinação das palavras informadas no arquivo keywords.txt forem achadas na mensagem enviada por alguém.
+# então a combinação de achar as keywords.txt + achar alguma palavra no keywords_group.txt faz com que o robo responda automaticamente
+
+sucesso
+feliz 
+aniversario 
+saude
+abencoar 
+abencoe 
+anos
+vida 
+diego 
+felicidade
+felicidades
+ano
+filho

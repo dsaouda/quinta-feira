@@ -1,0 +1,9 @@
+# this is a comment and will be ignored
+# lines starting with # and blank are ignored
+# white space at the beginning of each line or at the end is also removed
+# enter the words you want to activate the robot, that is, if it detects any pattern the robot will respond
+# just a note, when the message is sent as a group the robot only responds if the keyword_group also match the keywords here
+
+birthday
+happy birthday
+happy

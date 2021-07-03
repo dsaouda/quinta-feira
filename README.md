@@ -1,32 +1,34 @@
-# quinta-feira
+# Quinta-Feira
 
-quinta-feira é um WhatsApp bot bem simples que fiz para brincar com respostas automáticas no dia do meu aniversário.
+Veja a versão em português ()
 
-### Mas por que Quinta-Feira?
-A ideia do nome é brincar com o nome da inteligência artificial do Tony Stark, Sexta-Feira. 
+Quinta-Feira (Thursday) is a very simple WhatsApp bot I made to play with auto-responders on my birthday.
 
-quinta-feira foi o dia que coloquei o bot para responder as mensagens automática (dia do meu aniversário) hehehe.
+### But why (Quinta-Feira) Thursday?
+The idea of ​​the name is to play with Tony Stark's artificial intelligence name, F.R.I.D.A.Y.
 
-Além disso quis passar a idéia de evolução, tipo o bot não é muito bom, mas quando "evoluir" para sexta-feira ele será melhor. hehehe
+thursday was the day i put the bot to reply to automatic messages (my birthday) hehehe.
 
-## Configuração
+Also I wanted to convey the idea of ​​evolution, like the bot is not very good, but when it "evolves" to Friday it will be better. Hehehe
 
-Copie o arquivo `.env.sample` e cole com o nome de `.env`, abra o arquivo e realize as configurações.
+## Settings
 
-## Como rodar?
+Copy the `.env.sample` file and paste it with the name `.env`, open the file and make the settings.
 
-Instale a última versão do node (https://nodejs.org/en/download/)
+## How to run?
 
-Depois acesse o diretório do projeto via linha de comando e então digite:
+Install the latest version of node (https://nodejs.org/en/download/)
+
+Then access the project directory via the command line and then type:
 
 `npm install`
 
-Feito isso é só executar:
+Once this is done, just run:
 
-`node quinta-feira.js`
+`node thursday.js help` to see available options or to run the bot run `node thursday.js bot`
 
-O navegador será aberto, então escanei o qrcode e divirta-se :)
+The browser will open, so I scanned the qrcode and enjoy :)
 
-## Observação / Atenção !!!
+## Observation / Attention!!!
 
-Esse programa usa automatização do navegador para interagir com WhatsApp. O WhatsApp tem um histórico de bloquear o telefone quando detectar uso de apis não oficiais. Nesse caso estamos automatizando o navegador que é um programa oficial do WhatsApp, não sei se isso fere os diretos de uso do mesmo, logo use esse programa por sua conta e risco.
+This program uses browser automation to interact with WhatsApp. WhatsApp has a history of blocking the phone when detecting use of unofficial apis. In this case, we are automating the browser, which is an official WhatsApp program, I don't know if that hurts its use rights, so use this program at your own risk.

@@ -1,0 +1,20 @@
+# this is a comment and will be ignored
+# lines starting with # and blank are ignored
+# white space at the beginning of each line or at the end is also removed
+# provide a list of words below so that if the robot is detected it will automatically respond to a message in the group
+# attention: the robot will only respond to group messages if the combination of words entered in the keywords.txt file is found in the message sent by someone.
+# then the combination of finding keywords.txt + finding some word in keywords_group.txt makes the robot respond automatically
+
+success
+happy
+birthday
+Cheers
+to bless
+Bless
+years old
+life
+diego
+happiness
+cheers
+year
+son

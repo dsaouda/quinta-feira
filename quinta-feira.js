@@ -1,208 +1,135 @@
-const fs = require('fs');
-const { Client, MessageMedia } = require('whatsapp-web.js');
-require('dotenv').config();
+'use strict';
 
-const YOUR_PHONE_WHATSAPP_QUOTE = process.env.YOUR_PHONE_WHATSAPP_QUOTE;
-const HEADLESS = false;
-const BIN_CHROME = process.env.BIN_CHROME;
-const SESSION_FILE_PATH = './session.json';
+// see https://waguide.pedroslopez.me/ or https://pedroslopez.me/whatsapp-web.js/
 
-// mensagens enviadas automaticamente.
-// varia de acordo com a quantidade de parabéns enviados no dia. hehe
-const REPLY_MESSAGE = {
-    '0': 'Muito Obrigado :)',
-    '1': 'De novo? Que honra!!! Muito obrigado :)',
-    '2': 'Mais 2 vezes te entrego um prêmio',
-    '3': 'Tem certeza que deseja continuar?',
-    '4': MessageMedia.fromFilePath('./assets/video1.mp4'),
-    '5': 'Tá bom né? hehe',
-    '6': 'Parabéns Você chegou até o final do quinta-feira bot, robô que responde mensagens de aniversário automaticamente'
-};
+const dotenvParseVariables = require('dotenv-parse-variables');
+const env = dotenvParseVariables(require('dotenv').config().parsed);
 
-// palavras que ativam o robo
-const HAPPY_BIRTHDAY_WORDS = [
-    'parabens', 
-    'feliz aniversario', 
-    'happy birthday'
-];
+const { program } = require('commander');
+const { MessageMedia } = require('whatsapp-web.js');
+const readKeywordFile = require('./src/readwords');
+const Message = require('./src/message');
 
-// palavras usadas para filtrar mensagens de grupo depois que o robo foi ativado
-const KEY_WORDS = [
-    YOUR_PHONE_WHATSAPP_QUOTE, 
-    'sucesso', 
-    'feliz', 
-    'aniversario', 
-    'saude', 
-    'abencoar', 
-    'abencoe', 
-    'anos', 
-    'vida', 
-    'diego', 
-    'felicidade', 
-    'felicidades', 
-    'ano', 
-    'filho'
-];
+program.version('1.0.0');
 
-class Message {
+program
+    .command('bot')
+    .description('Run bot')
+    .action(() => {
+        
+        // keywords read from ./dict/
+        const keywords = readKeywordFile(`./dict/${env.DICT}/keyword.txt`);
+        const keywordsGroup = readKeywordFile(`./dict/${env.DICT}/keyword_group.txt`);
+        const replyMessage = readKeywordFile(`./dict/${env.DICT}/reply_message.txt`);
+        const client = require('./client')(env);
+
+        client.on('ready', () => {
+            console.log('bot ready');
+        });
+
+        // keep listening to group messages and private messages and do something :)
+        client.on('message', async msg => {
+            console.log('received message', {
+                from: msg.from,
+                body: msg.body,
+                to: msg.to,
+                type: msg.type
+            });
+
+            const message = new Message(msg, keywords, keywordsGroup);
     
-    constructor(msg) {
-        this.msg = msg;
-    }
-
-    /**
-     * verifica se a mensagem veio de um grupo
-     * @returns bool
-     */
-    get isMessageFromGroup() {
-        return this.msg.from.indexOf('@g.us') !== -1;
-    }
+            // media, stick or anything other than chat, ignore message
+            if (!message.isChat) {
+                return;
+            }
     
-    /**
-     * verifica se a mensagem foi enviada diretamente
-     * @returns bool
-     */
-    get isMessageFromDirect() {
-        return this.msg.from.indexOf('@c.us') !== -1.;
-    }
-    
-    /**
-     * retornar o número do usuário que enviou a mensagem, seja em um grupo ou de forma direta
-     * @returns string
-     */
-    get getFromId() {
-        return this.isMessageFromGroup ? this.msg.author : this.msg.from;
-    }
-    
-    /**
-     * removendo acentos da palavra, removendo qualquer caracter que não seja a-z 0-9 espaço e @
-     * depois jogo tudo em um array de palavras
-     * @returns array
-     */
-    get getWordsFromMessageBody() {
-        return this.msg.body.normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, '')
-            .toLowerCase()
-            .replace(/[^a-z0-9\s@]/g, '')
-            .split(' ');
-    }
+            if (message.isGroupMessage) {
+                if (!env.AUTO_REPLY_ENABLE_GROUP || !message.canReplyGroup) {
+                    console.log('group message ignored');
+                    return;
+                }
 
-    /**
-     * Verifica se alguma key word foi ativada, com isso o robô passa a ficar esperto para interagir
-     * @return bool
-     */
-    get isHappyBirthdayMessage() {
-        const words = this.getWordsFromMessageBody;
-        return words.filter(x => HAPPY_BIRTHDAY_WORDS.includes(x)).length > 0;
-    }
+                if (env.AUTO_REPLY_GROUPS.indexOf(msg.id._serialized) !== -1) {
+                    console.log('group is not allow send message'); 
+                    return;
+                }
+            }
 
-    /**
-     * Enviar mensagem em chat privado?
-     * @returns bool
-     */
-    get hasSendDirectMessage() {
-        return (
-            this.isMessageFromDirect && 
-            this.isHappyBirthdayMessage);
-    }
+            if (message.isDirectMessage) {
+                if (!env.AUTO_REPLY_ENABLE_DIRECT || !message.canReplyDirect) {
+                    console.log('direct message ignored');
+                    return;
+                }
 
-    /**
-     * Enviar mensagem em chat de grupo?
-     * @returns bool
-     */
-    get hasSendGroupMessage() {
-        const words = this.getWordsFromMessageBody;
-        return (
-            this.isMessageFromGroup && 
-            this.isHappyBirthdayMessage && 
-            words.filter(x => KEY_WORDS.includes(x)).length > 0);
-    }
+                if (env.AUTO_REPLY_DIRECT.indexOf(msg.id._serialized) !== -1) {
+                    console.log('contact is not allow send message'); 
+                    return;
+                }
+            }
+            
+            if (msg.body.length < env.AUTO_REPLY_MESSAGE_SIZE) {
+                console.log('message ignored by size');
+                return;
+            }
 
-    /**
-     * Robô pode enviar uma mensagem de resposta ao parabéns?
-     * @returns bool
-     */
-    get hasSendMessage() {
-        return this.hasSendDirectMessage || this.hasSendGroupMessage;
-    }
-}
+            const index = Math.floor(Math.random() * replyMessage.length);
 
-// para não precisar ficar logando toda hora gravamos a sessão, 
-// assim quando o robo parar e voltar ele já inicia logado
-let sessionCfg;
-if (fs.existsSync(SESSION_FILE_PATH)) {
-    sessionCfg = require(SESSION_FILE_PATH);
-}
+            const reply = replyMessage[index];
 
-// conta os parabéns por pessoa, dependendo da quantidade o robo envia uma mensagem diferente
-const countHappyBirthday = {};
-
-const client = new Client({ 
-    puppeteer: { 
-        headless: HEADLESS,
-        executablePath: BIN_CHROME,
-    }, session: sessionCfg 
-});
-
-client.initialize();
-
-// ler qr code
-client.on('qr', (qr) => {
-    console.log('qrcode recebido', qr);
-});
-
-// autenticou
-client.on('authenticated', (session) => {
-    console.log('autenticado', session);
-    sessionCfg=session;
-    fs.writeFile(SESSION_FILE_PATH, JSON.stringify(session), function (err) {
-        if (err) {
-            console.error(err);
-        }
+            if (env.MODE === 'prod') {
+                // wait to reply
+                setTimeout(function() {
+                    if (reply.startsWith('./assets')) {
+                        msg.reply(MessageMedia.fromFilePath(reply));
+                    } else {
+                        msg.reply(reply);
+                    }
+                }, env.AUTO_REPLY_DELAY);
+        
+            } else {
+                console.log(reply);
+            }
+        });
     });
-});
 
-// falhou na autenticacao
-client.on('auth_failure', msg => {
-    console.error('autenticacao falhou', msg);
-});
+program
+    .command('env')
+    .description('Show env values')
+    .action(() => {
+        console.log(env);
+    });
 
-client.on('ready', () => {
-    console.log('bot pronto');
-});
+program
+    .command('list-chats')
+    .description('Show your groups and contacts. This option helps you configure the env file, config AUTO_REPLY_GROUPS and AUTO_REPLY_DIRECT')
+    .action(() => {
+        const client = require('./client')(env);
+        client.on('ready', () => {
+            
+            (async function() {
+                const chats = await client.getContacts();
+                
+                const list = {};
 
-// fica ouvindo as menagens de grupos e mensagens privadas e faz alguma coisa :)
-client.on('message', async msg => {
-    console.log('mensagem recebida', msg);
+                for(const i in chats) {
+                    const chat = chats[i];
 
-    const message = new Message(msg);
-    
-    // se for media, stick ou qualquer outra coisa diferente de chat ignora a mensagem
-    if (msg.type !== 'chat') {
-        return;
-    }
-    
-    if (!message.hasSendMessage) {
-        return;
-    }
+                    if (!chat.isMyContact && !chat.isGroup) {
+                        continue;
+                    }
 
-    // preparando um map in memory para contar os parabéns de uma pessoa
-    const fromId = message.getFromId;
-    countHappyBirthday[fromId] = countHappyBirthday[fromId] | 0;
-    const currentValue = countHappyBirthday[fromId];
-    const replyMessage = REPLY_MESSAGE[currentValue];
-    
-    if (replyMessage) {
-        msg.reply(replyMessage);
-    }
+                    const key = chat.isGroup ? 'group' : 'contact';
+                    
+                    list[key] = list[key] || [];
+                    list[key].push({'id': chat.id._serialized, 'name': chat.name});
+                }
 
-    countHappyBirthday[fromId]++;
-});
+                console.log(JSON.stringify(list, null, 4));
+                console.log('Use id in env AUTO_REPLY_GROUPS or AUTO_REPLY_DIRECT');
+                process.exit(0);
+            })();
 
-client.on('change_state', state => {
-    console.log('status atualizado', state );
-});
+        });
+    });
 
-client.on('disconnected', (reason) => {
-    console.log('bot foi desconectado', reason);
-});
+program.parse(process.argv);

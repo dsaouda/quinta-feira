@@ -1,0 +1,13 @@
+# isso é um comentário e será ignorado
+# linhas que iniciam com # e em branco são ignoradas
+# espaço em branco no inicio de cada linha ou no final também são removidos
+# coloque nesse arquivo as mensagens que você deseja que o robo responda
+# se iniciar com ./assets/ o robo irá enviar um conteúdo dentro da pasta assets
+
+Muito Obrigado :)
+Obrigado pela lembrança
+./assets/video1.mp4
+Obrigado pelo carinho
+Value!!!
+Tks!
+:)

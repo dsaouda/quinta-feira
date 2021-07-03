@@ -1,0 +1,9 @@
+# isso é um comentário e será ignorado
+# linhas que iniciam com # e em branco são ignoradas
+# espaço em branco no inicio de cada linha ou no final também são removidos
+# coloque as palavras que você deseja para ativar o robo, ou seja, se detectar algum padrão o robo responderá
+# só uma observação, quando a mensagem for enviada em grupo o robo só responde se as keyword_group também combinarem com as keyword daqui
+
+parabens
+feliz aniversario 
+happy birthday

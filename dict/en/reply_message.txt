@@ -1,0 +1,12 @@
+# this is a comment and will be ignored
+# lines starting with # and blank are ignored
+# white space at the beginning of each line or at the end is also removed
+# put in this file the messages you want the robot to respond
+# if it starts with ./assets/ the robot will send content inside the assets folder
+
+Thank you so much :)
+Thank you for the reminder
+./assets/video1.mp4
+Thanks for the affection
+Tks!
+:)

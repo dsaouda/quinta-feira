@@ -22,7 +22,10 @@
   },
   "homepage": "https://github.com/dsaouda/quinta-feira#readme",
   "dependencies": {
+    "commander": "^8.0.0",
     "dotenv": "^10.0.0",
+    "dotenv-parse-variables": "^2.0.0",
+    "qrcode-terminal": "^0.12.0",
     "whatsapp-web.js": "^1.12.6"
   },
   "devDependencies": {
