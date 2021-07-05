@@ -1,8 +1,11 @@
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/cb029ac75551403c956b2a61209ddf27)](https://www.codacy.com/gh/dsaouda/quinta-feira/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dsaouda/quinta-feira&amp;utm_campaign=Badge_Grade)
+[![Depfu](https://badges.depfu.com/badges/81ca77d532e5c0006c9f195ea91ec86a/overview.svg)](https://depfu.com/github/dsaouda/quinta-feira?project_id=28278)
+
 # Quinta-Feira
 
 Quinta-Feira (Thursday) is a very simple WhatsApp bot I made to play with auto-responders on my birthday.
 
-### But why (Quinta-Feira) Thursday?
+## But why (Quinta-Feira) Thursday?
 The idea of the name is to play with Tony Stark's artificial intelligence name, F.R.I.D.A.Y.
 
 thursday was the day i put the bot to reply to automatic messages (my birthday) hehehe.
