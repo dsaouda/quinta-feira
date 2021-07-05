@@ -5,7 +5,7 @@
 
 quinta-feira é um WhatsApp bot bem simples que fiz para brincar com respostas automáticas no dia do meu aniversário.
 
-### Mas por que Quinta-Feira?
+## Mas por que Quinta-Feira?
 A ideia do nome é brincar com o nome da inteligência artificial do Tony Stark, Sexta-Feira. 
 
 quinta-feira foi o dia que coloquei o bot para responder as mensagens automática (dia do meu aniversário) hehehe.
