@@ -39,7 +39,7 @@ class Message {
      * @returns {bool}
      */
     get isDirectMessage() {
-        return this.msg.from.indexOf('@c.us') !== -1.;
+        return this.msg.from.indexOf('@c.us') !== -1;
     }
     
     /**
